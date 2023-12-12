@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Moon from '$lib/icons/Moon.svelte';
+	import Sunny from '$lib/icons/Sunny.svelte';
 	import { theme } from '$lib/stores/theme';
 
 	function toggleStatus(
@@ -34,21 +36,30 @@
 	}
 </script>
 
-<div
-	role="switch"
-	aria-checked={$theme === "light" ? "false" : "true"}
-	on:click={(e) => handleClick(e)}
-	on:keydown={(e) => handleKeydown(e)}
-	tabindex={0}
-	title="Alternar tema cores"
-	aria-label="Alternar tema cores"
-  class="switch"
->
-	<span class="controller"></span>
+<div class="container">
+	<span class="icon {$theme === "light" ? "light" : "dark"}">
+		<Sunny />
+	</span>
+	<div
+		role="switch"
+		aria-checked={$theme === "light" ? "false" : "true"}
+		on:click={(e) => handleClick(e)}
+		on:keydown={(e) => handleKeydown(e)}
+		tabindex={0}
+		title="Alternar tema cores"
+		aria-label="Alternar tema cores"
+		class="switch"
+	>
+		<span class="controller"></span>
+	</div>
+	<span class="icon {$theme === "light" ? "light" : "dark"}">
+		<Moon />
+	</span>
 </div>
 
+
 <style>
-  div{
+  .switch{
     background-color: var(--purple);
     width: 32px;
     padding: 4px;
@@ -59,7 +70,7 @@
 		content: "";
   }
 
-  span{
+  .controller{
     display: block;
     width: 12px;
     height: 12px;
@@ -72,11 +83,35 @@
 		transition: all 0.35s ease;
   }
 
-  div[aria-checked="false"] span{
+  .switch[aria-checked="false"] .controller{
     left: 4px;
   }
 
-  div[aria-checked="true"] span{
+  .switch[aria-checked="true"] .controller{
     left: 16px;
   }
+
+	.icon{
+		display: flex;
+		align-items: center;
+		color: #626C7F;
+	}
+
+	.light{
+		color: var(--grey-navy);
+		fill: var(--grey-navy);
+	}
+
+	.dark{
+		color: var(--pure-white);
+		fill: var(--pure-white);
+	}
+
+	.container{
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 8px;
+	}
 </style>

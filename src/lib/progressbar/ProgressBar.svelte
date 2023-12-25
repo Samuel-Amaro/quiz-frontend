@@ -32,5 +32,6 @@
 		background-color: var(--purple);
 		border-radius: 999px;
 		height: 100%;
+		transition: width ease-in-out 0.3s;
 	}
 </style>

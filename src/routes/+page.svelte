@@ -2,8 +2,14 @@
 	import Switch from '$lib/switch/Switch.svelte';
 	import MatchMedia from '$lib/matchmedia/MatchMedia.svelte';
 	import { getDatasViewSubject } from '$lib/util/utils.js';
+	import type { Quizzes } from '../types/api.type';
 
-	export let data;
+	async function getQuizzes() {
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+		const response = await fetch('/api/quizzes');
+		const quizzes: Quizzes = await response.json();
+		return quizzes.quizzes;
+	}
 </script>
 
 <header>
@@ -16,27 +22,33 @@
 		</h1>
 		<p>Escolha um assunto para começar.</p>
 	</div>
-	<div class="list">
-		{#each data.quizzes as subject}
-			{@const dataViewSubject = getDatasViewSubject(subject.title)}
-			<a
-				href="/quiz/{dataViewSubject.subject}"
-				target="_self"
-				rel="next"
-				title="Ir para o quiz de {dataViewSubject.subject}"
-			>
-				<div class="wrapperImage {dataViewSubject.class}">
-					<MatchMedia mediaQuery="(min-width: 400px)">
-						<svelte:component this={dataViewSubject.component} layout="mobile" slot="mobile" />
-						<svelte:component this={dataViewSubject.component} layout="desktop" slot="desktop" />
-					</MatchMedia>
-				</div>
-				<span class="text">
-					{subject.title}
-				</span>
-			</a>
-		{/each}
-	</div>
+	{#await getQuizzes()}
+		<p>Carregando Questionários...</p>
+	{:then quizzes}
+		<div class="list">
+			{#each quizzes as subject}
+				{@const dataViewSubject = getDatasViewSubject(subject.title)}
+				<a
+					href="/quiz/{dataViewSubject.subject}"
+					target="_self"
+					rel="next"
+					title="Ir para o quiz de {dataViewSubject.subject}"
+				>
+					<div class="wrapperImage {dataViewSubject.class}">
+						<MatchMedia mediaQuery="(min-width: 400px)">
+							<svelte:component this={dataViewSubject.component} layout="mobile" slot="mobile" />
+							<svelte:component this={dataViewSubject.component} layout="desktop" slot="desktop" />
+						</MatchMedia>
+					</div>
+					<span class="text">
+						{subject.title}
+					</span>
+				</a>
+			{/each}
+		</div>
+	{:catch error}
+		<p>Houve um erro ao carregar dados dos questionários...</p>
+	{/await}
 </main>
 
 <style>

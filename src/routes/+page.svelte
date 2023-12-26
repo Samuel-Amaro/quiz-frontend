@@ -20,10 +20,10 @@
 		<h1>
 			Bem-vindo ao <span class="mark">teste de Frontend!</span>
 		</h1>
-		<p>Escolha um assunto para começar.</p>
+		<p class="contentDescription">Escolha um assunto para começar.</p>
 	</div>
 	{#await getQuizzes()}
-		<p>Carregando Questionários...</p>
+		<p class="messageLoad">Carregando Questionários...</p>
 	{:then quizzes}
 		<div class="list">
 			{#each quizzes as subject}
@@ -35,7 +35,7 @@
 					title="Ir para o quiz de {dataViewSubject.subject}"
 				>
 					<div class="wrapperImage {dataViewSubject.class}">
-						<MatchMedia mediaQuery="(min-width: 400px)">
+						<MatchMedia mediaQuery="(min-width: 600px)">
 							<svelte:component this={dataViewSubject.component} layout="mobile" slot="mobile" />
 							<svelte:component this={dataViewSubject.component} layout="desktop" slot="desktop" />
 						</MatchMedia>
@@ -47,7 +47,7 @@
 			{/each}
 		</div>
 	{:catch error}
-		<p>Houve um erro ao carregar dados dos questionários...</p>
+		<p class="messageError">Houve um erro ao carregar dados dos questionários...</p>
 	{/await}
 </main>
 
@@ -67,11 +67,15 @@
 		line-height: 40px;
 		color: var(--choise01);
 		margin: 0 0 16px 0;
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: flex-start;
+		justify-content: center;
+		gap: 8px;
 	}
 
 	.mark {
 		display: block;
-		margin: 8px 0 0 0;
 		font-weight: 500;
 	}
 
@@ -79,7 +83,9 @@
 		margin: 0 0 40px 0;
 	}
 
-	p {
+	.contentDescription,
+	.messageLoad,
+	.messageError {
 		font-size: 14px;
 		font-style: italic;
 		font-weight: 400;
@@ -132,5 +138,57 @@
 
 	a:not(:last-child) {
 		margin: 0 0 12px 0;
+	}
+
+	@media screen and (min-width: 600px) {
+		header {
+			padding: 54px 64px 64px 64px;
+		}
+
+		main {
+			padding: 0px 64px 32px 64px;
+			margin: 0 0 208.01px 0;
+		}
+
+		h1 {
+			font-size: 64px;
+			line-height: 64px;
+			margin: 0 0 16px 0;
+		}
+
+		.mark {
+			display: block;
+			font-weight: 500;
+		}
+
+		.contentDescription,
+		.messageLoad,
+		.messageError {
+			font-size: 20px;
+			line-height: 30px;
+		}
+
+		.content {
+			margin: 0 0 64px 0;
+		}
+
+		a {
+			gap: 32px;
+			border-radius: 24px;
+		}
+
+		.wrapperImage {
+			padding: 8px;
+			border-radius: 12px;
+		}
+
+		.text {
+			font-size: 28px;
+			line-height: 28px;
+		}
+
+		a:not(:last-child) {
+			margin: 0 0 24px 0;
+		}
 	}
 </style>

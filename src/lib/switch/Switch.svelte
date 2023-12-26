@@ -65,8 +65,10 @@
 		height: 20px;
 		border-radius: 999px;
 		transition: all 0.3s ease-in-out;
-		position: relative;
 		content: '';
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
 	}
 
 	.controller {
@@ -76,18 +78,16 @@
 		content: '';
 		border-radius: 50%;
 		background-color: var(--pure-white);
-		position: absolute;
-		top: 4px;
-		left: 4px;
 		transition: all 0.35s ease;
+		position: relative;
 	}
 
 	.switch[aria-checked='false'] .controller {
-		left: 4px;
+		left: 0px;
 	}
 
 	.switch[aria-checked='true'] .controller {
-		left: 16px;
+		left: 12px;
 	}
 
 	.icon {
@@ -112,5 +112,29 @@
 		align-items: center;
 		justify-content: flex-end;
 		gap: 8px;
+	}
+
+	@media screen and (min-width: 600px) {
+		.container {
+			gap: 16px;
+		}
+
+		.switch {
+			width: 48px;
+			height: 28px;
+		}
+
+		.controller {
+			width: 20px;
+			height: 20px;
+		}
+
+		.switch[aria-checked='false'] .controller {
+			left: 0px;
+		}
+
+		.switch[aria-checked='true'] .controller {
+			left: 20px;
+		}
 	}
 </style>

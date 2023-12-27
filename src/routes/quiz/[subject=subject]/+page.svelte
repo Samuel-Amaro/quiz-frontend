@@ -75,7 +75,7 @@
 		<header>
 			<div class="headerContainer">
 				<span class="icon {datasRendering.class}">
-					<MatchMedia mediaQuery="(min-width: 400px)">
+					<MatchMedia mediaQuery="(min-width: 600px)">
 						<svelte:component this={datasRendering.component} layout="mobile" slot="mobile" />
 						<svelte:component this={datasRendering.component} layout="desktop" slot="desktop" />
 					</MatchMedia>
@@ -134,12 +134,12 @@
 								</div>
 								<span class="quizOptionIcon">
 									{#if typeof idxResponse === 'number' && typeof idxOptionSelected === 'number' && idxResponse === i && isSubmitResponse}
-										<MatchMedia mediaQuery="(min-width: 400px)">
+										<MatchMedia mediaQuery="(min-width: 600px)">
 											<svelte:component this={CheckMark} slot="mobile" />
 											<svelte:component this={CheckMark} size={40} slot="desktop" />
 										</MatchMedia>
 									{:else if typeof idxOptionSelected === 'number' && typeof idxResponse === 'number' && idxOptionSelected !== idxResponse && idxOptionSelected === i && isSubmitResponse}
-										<MatchMedia mediaQuery="(min-width: 400px)">
+										<MatchMedia mediaQuery="(min-width: 600px)">
 											<svelte:component this={Error} slot="mobile" />
 											<svelte:component this={Error} size={40} slot="desktop" />
 										</MatchMedia>
@@ -181,7 +181,7 @@
 							}
 						}}
 						class="quizBtnResponse"
-						class:spacing={isNoResponseSelected}
+						class:spacing={isNoResponseSelected && isSubmiteResponseWithoutOptionSelected}
 						>{isSubmitResponse && idxQuestion < data.questions.length - 1
 							? 'Próxima Questão'
 							: isSubmitResponse && idxQuestion === data.questions.length - 1
@@ -189,8 +189,8 @@
 							  : 'Enviar Resposta'}</button
 					>
 					{#if isNoResponseSelected && isSubmiteResponseWithoutOptionSelected}
-						<p role="alert" class="error">
-							<MatchMedia mediaQuery="(min-width: 400px)">
+						<p role="alert" class="errorWarning">
+							<MatchMedia mediaQuery="(min-width: 600px)">
 								<svelte:component this={Error} slot="mobile" />
 								<svelte:component this={Error} size={40} slot="desktop" />
 							</MatchMedia>
@@ -208,7 +208,7 @@
 						<div class="scoredContainer">
 							<div class="scoredContainerQuiz">
 								<span class="icon {datasRendering.class}">
-									<MatchMedia mediaQuery="(min-width: 400px)">
+									<MatchMedia mediaQuery="(min-width: 600px)">
 										<svelte:component
 											this={datasRendering.component}
 											layout="mobile"
@@ -244,7 +244,14 @@
 {:catch}
 	<div class="error">
 		<h1 class="errorTitle">Houve um erro ao carregar dados dos quiz</h1>
-		<a class="errorLink" href="/" target="_self" rel="next" title="Voltar para home" aria-label="Voltar para home">Voltar para home</a>
+		<a
+			class="errorLink"
+			href="/"
+			target="_self"
+			rel="next"
+			title="Voltar para home"
+			aria-label="Voltar para home">Voltar para home</a
+		>
 	</div>
 {/await}
 
@@ -424,7 +431,7 @@
 		margin: 0 0 12px 0;
 	}
 
-	.error {
+	.errorWarning {
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
@@ -539,7 +546,8 @@
 		text-align: center;
 	}
 
-	.load, .error{
+	.load,
+	.error {
 		height: 100vh;
 		display: flex;
 		flex-flow: row nowrap;
@@ -547,7 +555,8 @@
 		justify-content: center;
 	}
 
-	.loadTitle, .errorTitle{
+	.loadTitle,
+	.errorTitle {
 		padding: 24px;
 		border-radius: 12px;
 		background-color: var(--choose03);
@@ -557,11 +566,107 @@
 		line-height: 24px;
 	}
 
-	.errorTitle{
-		color: var(--red);
+	.errorTitle {
+		color: var(--choose04);
 	}
 
-	.errorLink{
+	.errorLink {
 		text-decoration: none;
+	}
+
+	@media screen and (min-width: 600px) {
+		section {
+			padding: 40px 64px 151.6px 64px;
+		}
+
+		header {
+			padding: 0 0 49px 0;
+		}
+
+		main {
+			padding: 0;
+		}
+
+		.icon {
+			padding: 8px;
+			border-radius: 12px;
+		}
+
+		h1,
+		.scoredContainerTitle {
+			font-size: 28px;
+			line-height: 28px;
+		}
+
+		.headerContainer {
+			gap: 24px;
+		}
+
+		.contentControllerQuestions {
+			font-size: 20px;
+			line-height: 30px;
+			margin: 0 0 27px 0;
+		}
+
+		.contentTitle {
+			font-size: 36px;
+			line-height: 43.2px;
+			margin: 0 0 40px 0;
+		}
+
+		.content {
+			margin: 0 0 64px 0;
+		}
+
+		.quizOption {
+			gap: 32px;
+			padding: 12px;
+			border-radius: 24px;
+		}
+
+		.quizOptionWrapper {
+			gap: 32px;
+		}
+
+		.quizTitle {
+			font-size: 28px;
+			line-height: 28px;
+		}
+
+		.quizOrderOption {
+			width: 56px;
+			height: 56px;
+		}
+		
+		.quizContentOption {
+			font-size: 28px;
+			line-height: 28px;
+		}
+
+		.quizOption:not(:last-child) {
+			margin: 0 0 24px 0;
+		}
+
+		.quizListOptions {
+			margin: 0 0 32px 0;
+		}
+
+		.scoredContainerBtn,
+		.quizBtnResponse,
+		.errorLink {
+			height: 92px;
+			border-radius: 24px;
+			font-size: 28px;
+			line-height: 28px;
+		}
+
+		.errorText {
+			font-size: 24px;
+			line-height: 36px;
+		}
+
+		.spacing {
+			margin: 0 0 32px 0;
+		}
 	}
 </style>

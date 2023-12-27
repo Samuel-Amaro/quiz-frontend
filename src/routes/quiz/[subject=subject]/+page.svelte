@@ -66,6 +66,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Teste sobre {data.title}</title>
+	<meta property="og:title" content={`Teste sobre {data.title}`} />
+</svelte:head>
+
 {#await getQuiz()}
 	<div class="load">
 		<h1 class="loadTitle">Carrregando quiz {$page.params.subject.toUpperCase()}...</h1>
@@ -199,44 +204,38 @@
 					{/if}
 				</div>
 			{:else}
-				<div class="scored">
-					<h2 class="scoredTitle">
-						Questionário concluído
-						<span class="scoredTitleColor">Você pontuou...</span>
-					</h2>
-					<div>
-						<div class="scoredContainer">
-							<div class="scoredContainerQuiz">
-								<span class="icon {datasRendering.class}">
-									<MatchMedia mediaQuery="(min-width: 600px)">
-										<svelte:component
-											this={datasRendering.component}
-											layout="mobile"
-											slot="mobile"
-										/>
-										<svelte:component
-											this={datasRendering.component}
-											layout="desktop"
-											slot="desktop"
-										/>
-									</MatchMedia>
-								</span>
-								<h3 class="scoredContainerTitle">{data.title}</h3>
-							</div>
-							<h4 class="scoredContainerPoints">{points}</h4>
-							<h5 class="scoredContainerFrom">de {data.questions.length}</h5>
+				<h2 class="scoredTitle">
+					Questionário concluído
+					<span class="scoredTitleColor">Você pontuou...</span>
+				</h2>
+				<div>
+					<div class="scoredContainer">
+						<div class="scoredContainerQuiz">
+							<span class="icon {datasRendering.class}">
+								<MatchMedia mediaQuery="(min-width: 600px)">
+									<svelte:component this={datasRendering.component} layout="mobile" slot="mobile" />
+									<svelte:component
+										this={datasRendering.component}
+										layout="desktop"
+										slot="desktop"
+									/>
+								</MatchMedia>
+							</span>
+							<h3 class="scoredContainerTitle">{data.title}</h3>
 						</div>
-						<a
-							href={$page.url.href}
-							target="_self"
-							rel="next"
-							title="Jogar de novo"
-							aria-label="Jogar de novo"
-							class="scoredContainerBtn"
-						>
-							Jogar de novo
-						</a>
+						<h4 class="scoredContainerPoints">{points}</h4>
+						<h5 class="scoredContainerFrom">de {data.questions.length}</h5>
 					</div>
+					<a
+						href={$page.url.href}
+						target="_self"
+						rel="next"
+						title="Jogar de novo"
+						aria-label="Jogar de novo"
+						class="scoredContainerBtn"
+					>
+						Jogar de novo
+					</a>
 				</div>
 			{/if}
 		</main>
@@ -409,7 +408,7 @@
 		height: 56px;
 		border-radius: 12px;
 		background-color: var(--purple);
-		box-shadow: 0px 16px 40px 0px rgba(--shadow01);
+		box-shadow: 0px 16px 40px 0px var(--shadow01);
 		font-size: 18px;
 		font-weight: 500;
 		line-height: 18px;
@@ -471,7 +470,6 @@
 	}
 
 	.quizOptionIcon {
-		align-self: flex-end;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -637,7 +635,7 @@
 			width: 56px;
 			height: 56px;
 		}
-		
+
 		.quizContentOption {
 			font-size: 28px;
 			line-height: 28px;
@@ -667,6 +665,67 @@
 
 		.spacing {
 			margin: 0 0 32px 0;
+		}
+
+		.scoredTitle {
+			font-size: 64px;
+			line-height: 64px;
+			margin: 0 0 64px 0;
+		}
+
+		.scoredContainer {
+			padding: 48px;
+			border-radius: 24px;
+			margin: 0 0 32px 0;
+		}
+
+		.scoredContainerQuiz {
+			gap: 24px;
+			margin: 0 0 40px 0;
+		}
+
+		.scoredContainerPoints {
+			font-size: 144px;
+			line-height: 144px;
+		}
+
+		.scoredContainerFrom {
+			font-size: 24px;
+			line-height: 36px;
+		}
+	}
+
+	@media screen and (min-width: 1200px) {
+		section {
+			padding: 83px 0 151.6px 0;
+			max-width: 1160px;
+			margin: 0 auto;
+		}
+
+		header {
+			padding: 0 0 85px 0;
+		}
+
+		main {
+			display: grid;
+			grid-template-columns: minmax(min-content, 465px) minmax(min-content, 565px);
+			gap: 131px;
+		}
+
+		.contentTitle {
+			margin: 0 0 164px 0;
+		}
+
+		.content {
+			margin: 0;
+		}
+
+		.quizOption {
+			padding: 18px 20px;
+		}
+
+		.scoredTitle {
+			margin: 0;
 		}
 	}
 </style>

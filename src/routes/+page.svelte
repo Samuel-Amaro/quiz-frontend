@@ -12,6 +12,19 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Quiz Front-End</title>
+	<meta
+		name="description"
+		content="Teste sobre assuntos relacionados a área de desenvolvimento Front-End"
+	/>
+	<meta
+		property="og:description"
+		content="Teste sobre assuntos relacionados a área de desenvolvimento Front-End"
+	/>
+	<meta property="og:title" content="Quiz Front-End" />
+</svelte:head>
+
 <header>
 	<Switch />
 </header>
@@ -189,6 +202,35 @@
 
 		a:not(:last-child) {
 			margin: 0 0 24px 0;
+		}
+	}
+
+	@media screen and (min-width: 1200px) {
+		header {
+			padding: 97px 0 99px 0;
+			max-width: 1160px;
+			margin: 0 auto;
+		}
+
+		main {
+			padding: 0px 24px 0 24px;
+			margin: 0 0 280.01px 0;
+			display: grid;
+			grid-template-columns: minmax(min-content, 465px) minmax(min-content, 564px);
+			justify-content: center;
+			gap: 131px;
+		}
+
+		h1 {
+			margin: 0 0 48px 0;
+		}
+
+		.content {
+			margin: 0;
+		}
+
+		a {
+			padding: 20px;
 		}
 	}
 </style>

@@ -233,9 +233,22 @@
 						title="Jogar de novo"
 						aria-label="Jogar de novo"
 						class="scoredContainerBtn"
+						class:spacingBtn={points >= 6}
 					>
 						Jogar de novo
 					</a>
+					{#if points >= 6}
+						<a
+							href="/"
+							target="_self"
+							rel="next"
+							title="Escolher outro assunto"
+							aria-label="Escolher outro assunto"
+							class="scoredContainerBtn"
+						>
+							Escolher outro assunto
+						</a>
+					{/if}
 				</div>
 			{/if}
 		</main>
@@ -572,6 +585,10 @@
 		text-decoration: none;
 	}
 
+	.spacingBtn{
+		margin: 0 0 12px 0;
+	}
+
 	@media screen and (min-width: 600px) {
 		section {
 			padding: 40px 64px 151.6px 64px;
@@ -693,6 +710,10 @@
 			font-size: 24px;
 			line-height: 36px;
 		}
+
+		.spacingBtn{
+			margin: 0 0 24px 0;
+		}
 	}
 
 	@media screen and (min-width: 1200px) {
@@ -726,6 +747,10 @@
 
 		.scoredTitle {
 			margin: 0;
+		}
+
+		.spacingBtn{
+			margin: 0 0 32px 0;
 		}
 	}
 </style>

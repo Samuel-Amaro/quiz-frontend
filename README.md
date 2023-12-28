@@ -38,8 +38,8 @@ Os usuários devem ser capazes de:
 
 ### Links
 
-- URL da solução: [Adicione o URL da solução aqui](https://your-solution-url.com)
-- URL do site ativo: [Adicione o URL do site ativo aqui](https://your-live-site-url.com)
+- URL da solução: [Repositótio Projeto](https://github.com/Samuel-Amaro/quiz-frontend)
+- URL Resultado: [Resultado](https://quiz-frontend-blue.vercel.app/)
 
 ## Meu processo
 
